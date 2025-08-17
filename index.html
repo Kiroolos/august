@@ -64,64 +64,7 @@
             <!-- Study Schedule -->
             <div class="bg-white rounded-lg shadow-sm p-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">eWPTX Study Schedule</h3>
-                <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-800 mb-2">Current: XML Labs (Ch 9 complete)</h4>
-                        <div class="text-sm text-blue-700 space-y-1">
-                            <div>• Aug 17: Finished INE XML theory (105 pages ~4 hrs)</div>
-                            <div>• Aug 18-19: 3 XML labs/day (45 mins each, check solution after deadline)</div>
-                            <div>• PortSwigger reading only if extra info (~1 hr)</div>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-3 text-sm">
-                        <div class="border-l-4 border-green-500 pl-3">
-                            <strong>Aug 20:</strong> Ch 10 Serialization p1-40 (~1.5h INE + optional 1h PortSwigger); 3-4 serialization labs
-                        </div>
-                        <div class="border-l-4 border-green-500 pl-3">
-                            <strong>Aug 21:</strong> Ch 10 Serialization p41-80 (~1.5h INE + optional 1h PortSwigger); 3-4 serialization labs
-                        </div>
-                        <div class="border-l-4 border-green-500 pl-3">
-                            <strong>Aug 22:</strong> Ch 10 Serialization p81-120 (~1.5h INE + optional 1h PortSwigger); 3-4 serialization labs
-                        </div>
-                        <div class="border-l-4 border-green-500 pl-3">
-                            <strong>Aug 23:</strong> Ch 10 Serialization p121-155 (~1.5h INE + optional 1h PortSwigger); 3-4 serialization labs
-                        </div>
-
-                        <div class="border-l-4 border-blue-500 pl-3">
-                            <strong>Aug 24:</strong> Ch 11 SSRF p1-37 (~1.5h INE + optional 1h PortSwigger); 2-3 SSRF labs
-                        </div>
-                        <div class="border-l-4 border-blue-500 pl-3">
-                            <strong>Aug 25:</strong> Ch 11 SSRF p38-74 (~1.5h INE + optional 1h PortSwigger); 2-3 SSRF labs
-                        </div>
-                        <div class="border-l-4 border-blue-500 pl-3">
-                            <strong>Aug 26:</strong> Ch 11 SSRF p75-111 (~1.5h INE + optional 1h PortSwigger); 2-3 SSRF labs
-                        </div>
-                        <div class="border-l-4 border-blue-500 pl-3">
-                            <strong>Aug 27:</strong> Ch 11 SSRF p112-147 (~1.5h INE + optional 1h PortSwigger); 2-3 SSRF labs
-                        </div>
-
-                        <div class="border-l-4 border-purple-500 pl-3">
-                            <strong>Aug 28:</strong> Ch 12 Crypto p1-22 (~1h INE + optional 0.5h PortSwigger); 2-3 crypto labs
-                        </div>
-                        <div class="border-l-4 border-purple-500 pl-3">
-                            <strong>Aug 29:</strong> Ch 12 Crypto p23-44 (~1h INE + optional 0.5h PortSwigger); 2-3 crypto labs
-                        </div>
-
-                        <div class="border-l-4 border-orange-500 pl-3">
-                            <strong>Aug 30:</strong> Ch 13 Auth & SSO p1-80 (~3h INE + optional 1h PortSwigger); 3-4 auth labs
-                        </div>
-                        <div class="border-l-4 border-red-500 pl-3">
-                            <strong>Aug 31:</strong> Mock exam & weak areas review
-                        </div>
-                    </div>
-                    
-                    <div class="bg-yellow-50 p-3 rounded-lg">
-                        <p class="text-xs text-yellow-800">
-                            <strong>📅 Extended Plan:</strong> Ch 14-15 (API/Cloud + LDAP) scheduled for Sep 1-5 if needed
-                        </p>
-                    </div>
-                </div>
+                <p class="text-sm text-gray-700">See the daily tasks below for the detailed schedule.</p>
             </div>
 
             <!-- Daily Study Structure -->
@@ -203,53 +146,66 @@
                 { id: 'xml_theory', task: 'Complete XML theory (Ch 9, 105 pages)', icon: '📘' }
             ],
             18: [
-                { id: 'xml_labs_1', task: '3 XML labs (45 mins each)', icon: '💻' }
+                { id: 'xml_labs_1', task: '3 XML labs (45 mins each, check solution after deadline)', icon: '💻' },
+                { id: 'xml_ps', task: 'Optional PortSwigger reading (~1 hr)', icon: '📚' }
             ],
             19: [
-                { id: 'xml_labs_2', task: '3 XML labs (45 mins each)', icon: '💻' }
+                { id: 'xml_labs_2', task: '3 XML labs (45 mins each, check solution after deadline)', icon: '💻' },
+                { id: 'xml_ps', task: 'Optional PortSwigger reading (~1 hr)', icon: '📚' }
             ],
             20: [
-                { id: 'serial_read_1', task: 'Ch 10 Serialization p1-40 (~1.5h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'serial_read_1', task: 'Ch 10 Serialization p1-40 (~1.5h INE)', icon: '📘' },
+                { id: 'serial_ps_1', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'serial_labs_1', task: '3-4 serialization labs', icon: '💻' }
             ],
             21: [
-                { id: 'serial_read_2', task: 'Ch 10 Serialization p41-80 (~1.5h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'serial_read_2', task: 'Ch 10 Serialization p41-80 (~1.5h INE)', icon: '📘' },
+                { id: 'serial_ps_2', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'serial_labs_2', task: '3-4 serialization labs', icon: '💻' }
             ],
             22: [
-                { id: 'serial_read_3', task: 'Ch 10 Serialization p81-120 (~1.5h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'serial_read_3', task: 'Ch 10 Serialization p81-120 (~1.5h INE)', icon: '📘' },
+                { id: 'serial_ps_3', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'serial_labs_3', task: '3-4 serialization labs', icon: '💻' }
             ],
             23: [
-                { id: 'serial_read_4', task: 'Ch 10 Serialization p121-155 (~1.5h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'serial_read_4', task: 'Ch 10 Serialization p121-155 (~1.5h INE)', icon: '📘' },
+                { id: 'serial_ps_4', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'serial_labs_4', task: '3-4 serialization labs', icon: '💻' }
             ],
             24: [
-                { id: 'ssrf_read_1', task: 'Ch 11 SSRF p1-37 (~1.5h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'ssrf_read_1', task: 'Ch 11 SSRF p1-37 (~1.5h INE)', icon: '📘' },
+                { id: 'ssrf_ps_1', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'ssrf_labs_1', task: '2-3 SSRF labs', icon: '💻' }
             ],
             25: [
-                { id: 'ssrf_read_2', task: 'Ch 11 SSRF p38-74 (~1.5h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'ssrf_read_2', task: 'Ch 11 SSRF p38-74 (~1.5h INE)', icon: '📘' },
+                { id: 'ssrf_ps_2', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'ssrf_labs_2', task: '2-3 SSRF labs', icon: '💻' }
             ],
             26: [
-                { id: 'ssrf_read_3', task: 'Ch 11 SSRF p75-111 (~1.5h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'ssrf_read_3', task: 'Ch 11 SSRF p75-111 (~1.5h INE)', icon: '📘' },
+                { id: 'ssrf_ps_3', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'ssrf_labs_3', task: '2-3 SSRF labs', icon: '💻' }
             ],
             27: [
-                { id: 'ssrf_read_4', task: 'Ch 11 SSRF p112-147 (~1.5h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'ssrf_read_4', task: 'Ch 11 SSRF p112-147 (~1.5h INE)', icon: '📘' },
+                { id: 'ssrf_ps_4', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'ssrf_labs_4', task: '2-3 SSRF labs', icon: '💻' }
             ],
             28: [
-                { id: 'crypto_read_1', task: 'Ch 12 Crypto p1-22 (~1h INE + optional 0.5h PortSwigger)', icon: '📘' },
+                { id: 'crypto_read_1', task: 'Ch 12 Crypto p1-22 (~1h INE)', icon: '📘' },
+                { id: 'crypto_ps_1', task: 'Optional PortSwigger reading (~0.5h)', icon: '📚' },
                 { id: 'crypto_labs_1', task: '2-3 crypto labs', icon: '💻' }
             ],
             29: [
-                { id: 'crypto_read_2', task: 'Ch 12 Crypto p23-44 (~1h INE + optional 0.5h PortSwigger)', icon: '📘' },
+                { id: 'crypto_read_2', task: 'Ch 12 Crypto p23-44 (~1h INE)', icon: '📘' },
+                { id: 'crypto_ps_2', task: 'Optional PortSwigger reading (~0.5h)', icon: '📚' },
                 { id: 'crypto_labs_2', task: '2-3 crypto labs', icon: '💻' }
             ],
             30: [
-                { id: 'auth_read', task: 'Ch 13 Auth & SSO p1-80 (~3h INE + optional 1h PortSwigger)', icon: '📘' },
+                { id: 'auth_read', task: 'Ch 13 Auth & SSO p1-80 (~3h INE)', icon: '📘' },
+                { id: 'auth_ps', task: 'Optional PortSwigger reading (~1h)', icon: '📚' },
                 { id: 'auth_labs', task: '3-4 auth labs', icon: '💻' }
             ],
             31: [
