@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>August eWPTX Exam Prep Tracker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐞</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -196,25 +196,63 @@
             { id: 'phone_discipline', task: 'Limit phone usage', icon: '📵' }
         ];
 
+        // API Configuration
+        const API_BASE_URL = 'https://your-railway-app.railway.app/api'; // Replace with your Railway URL
+        
         let completedTasks = {};
         const remainingDays = Array.from({length: 15}, (_, i) => i + 17);
 
-        // Load saved progress from localStorage
-        function loadProgress() {
-            const saved = localStorage.getItem('ewptx-tracker-progress');
-            if (saved) {
-                try {
-                    completedTasks = JSON.parse(saved);
-                } catch (e) {
-                    console.log('Error loading saved progress, starting fresh');
-                    completedTasks = {};
+        // API Functions
+        async function saveToAPI(data) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/progress`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ progress: data })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
+                console.log('Progress saved to database');
+                return true;
+            } catch (error) {
+                console.error('Error saving to API:', error);
+                // Fallback to localStorage if API fails
+                localStorage.setItem('ewptx-tracker-progress', JSON.stringify(data));
+                return false;
             }
         }
 
-        // Save progress to localStorage
-        function saveProgress() {
-            localStorage.setItem('ewptx-tracker-progress', JSON.stringify(completedTasks));
+        async function loadFromAPI() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/progress`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data.progress || {};
+            } catch (error) {
+                console.error('Error loading from API:', error);
+                // Fallback to localStorage if API fails
+                const saved = localStorage.getItem('ewptx-tracker-progress');
+                return saved ? JSON.parse(saved) : {};
+            }
+        }
+
+        // Load saved progress
+        async function loadProgress() {
+            completedTasks = await loadFromAPI();
+        }
+
+        // Save progress
+        async function saveProgress() {
+            await saveToAPI(completedTasks);
         }
 
         function toggleTask(day, taskId) {
@@ -294,10 +332,11 @@
                             <div 
                                 id="task-${day}-${task.id}"
                                 class="task-item flex items-center p-2 rounded cursor-pointer hover:bg-gray-50"
+                                onclick="toggleTask(${day}, '${task.id}')"
                             >
-                                <input type="checkbox" class="mr-2" onclick="event.stopPropagation()" onchange="toggleTask(${day}, '${task.id}')">
+                                <input type="checkbox" class="mr-2" onclick="event.stopPropagation()">
                                 <span class="text-base mr-2">${task.icon}</span>
-                                <span id="text-${day}-${task.id}" class="text-sm text-gray-700">${task.task}</span>
+                                <span id="text-${day}-${task.id}" class="text-sm text-gray-700 flex-1">${task.task}</span>
                             </div>
                         `).join('')}
                     </div>
@@ -306,8 +345,8 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProgress(); // Load saved data first
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadProgress(); // Load saved data first
             generateCards();
             updateUI();
         });
