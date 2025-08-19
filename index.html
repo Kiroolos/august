@@ -216,12 +216,36 @@
 
         // API Configuration
         const API_BASE_URL = 'https://my-todo-list-production-ac74.up.railway.app/api'; // Replace with your Railway URL
-        
+
         let completedTasks = {};
         const remainingDays = Object.keys(dailyTasks).map(Number);
         const BASE_COMPLETED_CHAPTERS = 8;
         const TOTAL_CHAPTERS = 15;
         const baseProgress = Math.round((BASE_COMPLETED_CHAPTERS / TOTAL_CHAPTERS) * 100);
+
+        // API Key handling
+        const DEFAULT_API_KEY = "%$$freErwt#$TW%ggfdstr4532423sdf";
+
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+            return match ? decodeURIComponent(match[1]) : null;
+        }
+
+        function setCookie(name, value) {
+            const secure = location.protocol === 'https:' ? '; Secure' : '';
+            document.cookie = `${name}=${encodeURIComponent(value)}; Path=/; SameSite=Strict${secure}`;
+        }
+
+        function ensureApiKey() {
+            let key = getCookie('apiKey');
+            if (!key) {
+                key = prompt('Enter API key', DEFAULT_API_KEY);
+                if (key) {
+                    setCookie('apiKey', key);
+                }
+            }
+            return key;
+        }
 
 
         // API Functions
@@ -232,6 +256,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                     body: JSON.stringify({ progress: data })
                 });
                 
@@ -251,7 +276,9 @@
 
         async function loadFromAPI() {
             try {
-                const response = await fetch(`${API_BASE_URL}/progress`);
+                const response = await fetch(`${API_BASE_URL}/progress`, {
+                    credentials: 'include'
+                });
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -370,6 +397,10 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
+            const key = ensureApiKey();
+            if (!key) {
+                return;
+            }
             await loadProgress(); // Load saved data first
             generateCards();
             updateUI();
