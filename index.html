@@ -224,7 +224,6 @@
         const baseProgress = Math.round((BASE_COMPLETED_CHAPTERS / TOTAL_CHAPTERS) * 100);
 
         // API Key handling
-        const DEFAULT_API_KEY = "%$$freErwt#$TW%ggfdstr4532423sdf";
 
         function getCookie(name) {
             const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
@@ -239,7 +238,7 @@
         function ensureApiKey() {
             let key = getCookie('apiKey');
             if (!key) {
-                key = prompt('Enter API key', DEFAULT_API_KEY);
+                key = prompt('Enter API key');
                 if (key) {
                     setCookie('apiKey', key);
                 }
