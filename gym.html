@@ -373,9 +373,9 @@
         async function updateCurrentStatus() {
             try {
                 const [statusResponse, currentResponse, predictionResponse] = await Promise.all([
-                    fetch(`${API_BASE_URL}/gym/status`),
-                    fetch(`${API_BASE_URL}/capacity/current`),
-                    fetch(`${API_BASE_URL}/capacity/prediction`)
+                    fetch(`${API_BASE_URL}/gym/status`, { credentials: 'include' }),
+                    fetch(`${API_BASE_URL}/capacity/current`, { credentials: 'include' }),
+                    fetch(`${API_BASE_URL}/capacity/prediction`, { credentials: 'include' })
                 ]);
 
                 const statusData = await statusResponse.json();
@@ -441,10 +441,10 @@
                 }
 
                 const [historyResponse, peakHoursResponse, dailyStatsResponse, hourlyAvgResponse] = await Promise.all([
-                    fetch(`${API_BASE_URL}/capacity/history?${queryParams}`),
-                    fetch(`${API_BASE_URL}/capacity/peak-hours?${queryParams}`),
-                    fetch(`${API_BASE_URL}/capacity/daily-stats?${queryParams}`),
-                    fetch(`${API_BASE_URL}/capacity/hourly-average?${queryParams}`)
+                    fetch(`${API_BASE_URL}/capacity/history?${queryParams}`, { credentials: 'include' }),
+                    fetch(`${API_BASE_URL}/capacity/peak-hours?${queryParams}`, { credentials: 'include' }),
+                    fetch(`${API_BASE_URL}/capacity/daily-stats?${queryParams}`, { credentials: 'include' }),
+                    fetch(`${API_BASE_URL}/capacity/hourly-average?${queryParams}`, { credentials: 'include' })
                 ]);
 
                 const [historyData, peakHoursData, dailyStatsData, hourlyAvgData] = await Promise.all([
