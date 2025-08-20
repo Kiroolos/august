@@ -230,17 +230,24 @@
             return match ? decodeURIComponent(match[1]) : null;
         }
 
-        function setCookie(name, value) {
+        function setCookie(name, value, days = 30) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
             const secure = location.protocol === 'https:' ? '; Secure' : '';
-            document.cookie = `${name}=${encodeURIComponent(value)}; Path=/; SameSite=Strict${secure}`;
+            document.cookie = `${name}=${encodeURIComponent(value)}; Path=/; expires=${expires.toUTCString()}; SameSite=Lax${secure}`;
         }
 
         function ensureApiKey() {
             let key = getCookie('apiKey');
             if (!key) {
-                key = prompt('Enter API key');
-                if (key) {
-                    setCookie('apiKey', key);
+                key = prompt('Enter API key for backend access:');
+                if (key && key.trim()) {
+                    setCookie('apiKey', key.trim());
+                    console.log('API key saved successfully');
+                    return key.trim();
+                } else {
+                    console.log('No API key provided');
+                    return null;
                 }
             }
             return key;
@@ -249,11 +256,19 @@
 
         // API Functions
         async function saveToAPI(data) {
+            const apiKey = getCookie('apiKey');
+            if (!apiKey) {
+                console.error('No API key found');
+                setCookie('ewptx-tracker-progress', JSON.stringify(data));
+                return false;
+            }
+
             try {
                 const response = await fetch(`${API_BASE_URL}/progress`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
                     },
                     credentials: 'include',
                     body: JSON.stringify({ progress: data })
@@ -267,15 +282,25 @@
                 return true;
             } catch (error) {
                 console.error('Error saving to API:', error);
-                // Fallback to localStorage if API fails
-                localStorage.setItem('ewptx-tracker-progress', JSON.stringify(data));
+                // Fallback to cookies if API fails
+                setCookie('ewptx-tracker-progress', JSON.stringify(data));
                 return false;
             }
         }
 
         async function loadFromAPI() {
+            const apiKey = getCookie('apiKey');
+            if (!apiKey) {
+                console.error('No API key found');
+                const saved = getCookie('ewptx-tracker-progress');
+                return saved ? JSON.parse(saved) : {};
+            }
+
             try {
                 const response = await fetch(`${API_BASE_URL}/progress`, {
+                    headers: {
+                        'X-API-Key': apiKey
+                    },
                     credentials: 'include'
                 });
                 
@@ -287,8 +312,8 @@
                 return data.progress || {};
             } catch (error) {
                 console.error('Error loading from API:', error);
-                // Fallback to localStorage if API fails
-                const saved = localStorage.getItem('ewptx-tracker-progress');
+                // Fallback to cookies if API fails
+                const saved = getCookie('ewptx-tracker-progress');
                 return saved ? JSON.parse(saved) : {};
             }
         }
